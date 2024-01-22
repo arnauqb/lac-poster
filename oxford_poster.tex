@@ -24,7 +24,7 @@
 
 \documentclass[final,hyperref={pdfpagelabels=false}]{beamer}
 
-\usepackage[orientation=portrait,size=a1,scale=1.5]{beamerposter} % Use the beamerposter package for laying out the poster with a portrait orientation and an a0 paper size
+\usepackage[orientation=portrait,size=a1,scale=1.43]{beamerposter} % Use the beamerposter package for laying out the poster with a portrait orientation and an a0 paper size
 
 \usetheme{Oxford}
 
@@ -60,8 +60,8 @@
 %----------------------------------------------------------------------------------------
 %   TITLE SECTION 
 %----------------------------------------------------------------------------------------
-\title{\Huge Large Agent Collider\\ Understanding complexity from the bottom-up} % Poster title
-\author{Nicholas Bishop, Joel Dyer, Imran Hashmi, Arnau Quera-Bofarull, Hao Zhou, Anisoara Calinescu, Doyne Farmer, Michael Wooldridge}
+\title{{\Huge Large Agent Collider}\vspace{0.3cm}\\ Studying complexity with agent-based models}
+\author{Nicholas Bishop, Joel Dyer, Imran Hashmi, Arnau Quera-Bofarull, Hao Zhou, \\ Anisoara Calinescu, Doyne Farmer, Michael Wooldridge}
 \institute{Department of Computer Science, University of Oxford\\\vspace{4mm}
 \texttt{\{name.surname\}@cs.ox.ac.uk}}
 
@@ -87,15 +87,20 @@
 %% Column 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{column}{.4\textwidth} % 1st column
+  \begin{column}{.48\textwidth} % 1st column
 
     \vspace{\shrink}          
     \begin{block}{1. Agent-Based Models}
       \begin{itemize}
-          \item Agent-based modeling (\textbf{ABMing}) is a simulation technique to study complex systems.
-          \item We simulate the behaviour of individual agents and observe the emergent behaviour of the system.
+          \item Agent-based modelling (\textbf{ABMing}) is a simulation technique to study complex systems.
+          \item In ABMing, we simulate the actions and interactions of autonomous agents in order to understand the emerging collective behaviour of the system.
           \item Agent-based models (\textbf{ABMs}) are used in many fields, including biology, economics, and sociology.
       \end{itemize}
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.8\columnwidth]{figures/birds}
+        \caption{\footnotesize The flocking of a pack of birds is an emergent feature of the bird's individual behaviour.}
+      \end{figure}
     \end{block}
     \begin{block}{3. Challenges of Agent-Based Modelling}
       The effective use of ABMs in wider settings such as policy making is hindered by:
@@ -118,12 +123,12 @@
 
   \begin{column}{.02\textwidth}\end{column} % Empty spacer column
 
-  \begin{column}{.55\textwidth} % 2nd column
+  \begin{column}{.48\textwidth} % 2nd column
     \vspace{\shrink}
     \begin{block}{2. Example : Epidemiology}
       \begin{itemize}
         \item We can study the spread of a disease in a population using an ABM.
-        \item We do so by simulating the movement and interaction of individuals in a population.
+        \item We do so by simulating the movement and interactions of individuals in a population.
         \item A good example is the agent-based SIR (Susceptible, Infectious, Recovered) model, where disease can spread after a contact with an infectious individual.
         \vspace{1cm}
           \begin{figure}
@@ -179,17 +184,19 @@
               \caption{\footnotesize Percentage of the population in each state over time.}
             \end{subfigure}
           \end{figure}
+      \vspace{0.5cm}
       \item The spread of the disease will depend on multiple factors, including the behaviour and contact patterns of individuals.
       \end{itemize}
     \end{block}
 
 
     \begin{block}{4. How are we tackling these challenges?}
+      In our research group, we are tackling these challenges using the following techniques:
       \begin{itemize}
         \item \justifying \textbf{A. Tensorized simulation}: By leveraging modern software for tensorized computation, we can simulate ABMs orders of magnitude faster than traditional implementations.
-        \item \justifying \textbf{B. Scenario-generation}: When we lack access to real-world granular data, we can use generative models to create synthetic data that help us preper for future scenarios.
-        \item \justifying \textbf{C. Differentiable programming}: We can use modern automatic differentiation techniques to enable gradient-based calibration of ABMs.
-        \item \justifying \textbf{D. Causal inference}: We can use causal inference techniques to understand the causal relationships between the agents and the emergent behaviour of the system.
+        \item \justifying \textbf{B. Scenario-generation}: When fine-grained data not available, we can use ABMs as a scenario-based planning tool to help policy making under uncertainty.
+        \item \justifying \textbf{C. Differentiable programming}: We can use automatic differentiation to enable gradient-based calibration of ABMs.
+        \item \justifying \textbf{D. Causal inference}: Causal inference techniques can help us understand the causal relationships between the agents and the emergent behaviour of the system.
         \item \justifying \textbf{E. Open-source software}: All our research software is open-source, and we use modern software engineering practices to ensure reproducibility.
 
       \end{itemize}
@@ -207,8 +214,17 @@
 \end{columns} % End of all the columns in the poster
 
 \begin{minipage}{\textwidth}
+  \begin{block}{5. Results and Impact}
+    \begin{itemize}
+      \item We have dramatically accelerated the simulation, calibration, and analysis of ABMs involving millions of agents in epidemiological and financial domains \cite{10.5555/3545946.3598851, 10.1145/3604237.3626857, 10.5555/3545946.3598853, bayesian_diff, some_challenges}.
+      \item We have developed an open-source package for the Bayesian calibration of differentiable simulators using the developed techniques \cite{blackbirds}.
+      \item We have developed a novel methodology for scenario-generation based planning under uncertainty using ABMs \cite{synthpop}.
+      \item We have adapted secure multi-party computation techniques to enable privacy-preserving simulation, calibration, and analysis of ABMs \cite{decabm}.
+      \item TODO: Causal stuff?
+  \end{itemize}
+  \end{block}
   \begin{block}{Bibliography}
-    \nocite{*} % Insert publications even if they are not cited in the poster
+    %\nocite{*} % Insert publications even if they are not cited in the poster
     \linespread{0.928}\selectfont
     \scriptsize{\bibliographystyle{abbrv}\bibliography{lac_papers}}
   \end{block}

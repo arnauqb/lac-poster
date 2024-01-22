@@ -1,3 +1,3 @@
 current poster build:
 
-[Poster](https://github.com/arnauqb/lac-poster/oxford_poster.pdf)
+[Poster](https://github.com/arnauqb/lac-poster/blob/master/oxford_poster.pdf)
