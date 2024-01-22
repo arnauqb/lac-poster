@@ -24,19 +24,28 @@
 
 \documentclass[final,hyperref={pdfpagelabels=false}]{beamer}
 
-\usepackage[orientation=landscape,size=a0,scale=1.3]{beamerposter} % Use the beamerposter package for laying out the poster with a portrait orientation and an a0 paper size
+\usepackage[orientation=portrait,size=a1,scale=1.5]{beamerposter} % Use the beamerposter package for laying out the poster with a portrait orientation and an a0 paper size
 
 \usetheme{Oxford}
 
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage{blindtext}
+\usepackage{ragged2e}
 \usepackage{amsmath,amsthm,amssymb,latexsym} % For including math equations, theorems, symbols, etc
-\usepackage[document]{ragged2e}
+\usepackage{ragged2e}
 \usepackage{times}\usefonttheme{professionalfonts}  % Uncomment to use Times as the main font
 \usefonttheme[onlymath]{serif} % Uncomment to use a Serif font within math environments
 %\boldmath % Use bold for everything within the math environment
 \usepackage{booktabs} % Top and bottom rules for tables
 \usepackage{microtype}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{svg}
+
+\usetikzlibrary{positioning, shapes, arrows.meta}
+
+
 
 \usecaptiontemplate{\small\structure{\insertcaptionname~\insertcaptionnumber: }\insertcaption} % A fix for figure numbering
 
@@ -51,10 +60,10 @@
 %----------------------------------------------------------------------------------------
 %   TITLE SECTION 
 %----------------------------------------------------------------------------------------
-\title{\Huge Oxford\\ Beamer Poster} % Poster title
-\author{Author 1, Author 2, Author 3}
-\institute{Department of Engineering Science, University of Oxford\\\vspace{4mm}
-\texttt{\{author1,author2,author3\}@robots.ox.ac.uk}}
+\title{\Huge Large Agent Collider\\ Understanding complexity from the bottom-up} % Poster title
+\author{Nicholas Bishop, Joel Dyer, Imran Hashmi, Arnau Quera-Bofarull, Hao Zhou, Anisoara Calinescu, Doyne Farmer, Michael Wooldridge}
+\institute{Department of Computer Science, University of Oxford\\\vspace{4mm}
+\texttt{\{name.surname\}@cs.ox.ac.uk}}
 
 %----------------------------------------------------------------------------------------
 %   FOOTER TEXT
@@ -78,21 +87,29 @@
 %% Column 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{column}{.3\textwidth} % 1st column
+  \begin{column}{.4\textwidth} % 1st column
 
     \vspace{\shrink}          
-    \begin{block}{Overview}
+    \begin{block}{1. Agent-Based Models}
       \begin{itemize}
-          \item Overview 1
-          \item Overview 2
-          \item Overview 3
-          \item Overview 4
+          \item Agent-based modeling (\textbf{ABMing}) is a simulation technique to study complex systems.
+          \item We simulate the behaviour of individual agents and observe the emergent behaviour of the system.
+          \item Agent-based models (\textbf{ABMs}) are used in many fields, including biology, economics, and sociology.
+      \end{itemize}
+    \end{block}
+    \begin{block}{3. Challenges of Agent-Based Modelling}
+      The effective use of ABMs in wider settings such as policy making is hindered by:
+      \begin{itemize}
+        \item\justifying \textbf{A. Expensive to simulate}: ABMs involve simulating potentially millions of agents, which is computationally expensive.
+        \item\justifying \textbf{B. Data availability:} The granularity of ABMs requires a lot of data, which is often not available.
+        \item\justifying\textbf{C. Tough to calibrate}: ABMs are often used to make predictions about the real world, but it is difficult to validate the truthfulness of the model.
+        \item\justifying \textbf{D. Difficult to analyse}: The complexity of ABMs makes it difficult to understand the causal 
+          relationships between the agents and the emergent behaviour of the system.
+        \item\justifying \textbf{E. Hard to reproduce}: Programming ABMs is difficult, and it is often hard to 
+          reproduce the results of a model done by another researcher.
       \end{itemize}
     \end{block}
 
-    \begin{block}{Another block}
-      Block text \cite{le-2016-inference-compilation}...
-    \end{block}
   \end{column} % End of the 1st column
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -101,15 +118,81 @@
 
   \begin{column}{.02\textwidth}\end{column} % Empty spacer column
 
-  \begin{column}{.3\textwidth} % 2nd column
+  \begin{column}{.55\textwidth} % 2nd column
     \vspace{\shrink}
-    \begin{block}{Method}
-      \textbf{Method details.} We formulate... $\mathcal S = \{s_1, s_2, s_3, s_4, s_5, s_6 \}$
+    \begin{block}{2. Example : Epidemiology}
+      \begin{itemize}
+        \item We can study the spread of a disease in a population using an ABM.
+        \item We do so by simulating the movement and interaction of individuals in a population.
+        \item A good example is the agent-based SIR (Susceptible, Infectious, Recovered) model, where disease can spread after a contact with an infectious individual.
+        \vspace{1cm}
+          \begin{figure}
+            \captionsetup[subfigure]{justification=centering}
+            \begin{subfigure}[t]{0.3 \columnwidth}
+              \begin{tikzpicture}[node distance=3cm,>=Stealth,auto, scale=1.2]
+      
+                % Define person node
+                %\tikzstyle{person} = [circle, draw, fill=blue!20, minimum size=20pt, inner sep=0pt]
+                \tikzstyle{person} = [path picture={\node at (path picture bounding box.center) {\includegraphics[width=20pt]{figures/person}};}]
+      
+      
+                % Create 10 person nodes with more spaced positions
+                \foreach \i/\x/\y in {1/0/0, 2/2/0, 3/-1/2, 4/1/2, 5/3/2, 6/3/4, 7/-0.2/4, 8/-1/6.5, 9/1/6, 10/-1/3}
+                    \node[person] (p\i) at (\x, \y) {};
+      
+                % Draw connections to resemble clusters
+                \foreach \i in {1,...,4}
+                    \foreach \j in {\i,...,5}
+                        \draw (p\i) -- (p\j);
+      
+                \foreach \i in {6,...,8}
+                    \foreach \j in {\i,...,10}
+                        \draw (p\i) -- (p\j);
+      
+                \draw (p4) -- (p6);
+              \end{tikzpicture}
+              \caption{\footnotesize Graph representing the contacts of the population.}
+            \end{subfigure}
+            \begin{subfigure}[t]{0.5 \columnwidth}
+              \begin{tikzpicture}[scale=1.25 ]
+                \begin{axis}[
+                  xlabel={Time [ days ]},
+                  ylabel={Population [\%]},
+                  legend pos=north west,
+                  legend style={font=\footnotesize}, 
+                  grid=both,
+                  axis lines=left,
+                  xlabel style={font=\scriptsize},
+                  ylabel style={font=\scriptsize},
+                  tick label style={font=\scriptsize}
+                ]
+                  \addplot[domain=0:10, smooth, ultra thick, blue] {50 * (1 - 1 / (1 + exp(-0.5 * (x - 5))))};
+                  \addlegendentry{Susceptible};
 
-      Image example:
-      \begin{center}
-        \includegraphics[width=0.9\columnwidth]{ox_brand_cmyk_rev}
-      \end{center}
+                  \addplot[domain=0:10, smooth, ultra thick, red] {100 / (1 + exp(-0.5 * (x - 5)))};
+                  \addlegendentry{Infectious};
+
+                  \addplot[domain=0:10, smooth, ultra thick, green] {50 / (1 + exp(-0.5 * (x - 5)))};
+                  \addlegendentry{Recovered};
+                \end{axis}
+              \end{tikzpicture}
+              \caption{\footnotesize Percentage of the population in each state over time.}
+            \end{subfigure}
+          \end{figure}
+      \item The spread of the disease will depend on multiple factors, including the behaviour and contact patterns of individuals.
+      \end{itemize}
+    \end{block}
+
+
+    \begin{block}{4. How are we tackling these challenges?}
+      \begin{itemize}
+        \item \justifying \textbf{A. Tensorized simulation}: By leveraging modern software for tensorized computation, we can simulate ABMs orders of magnitude faster than traditional implementations.
+        \item \justifying \textbf{B. Scenario-generation}: When we lack access to real-world granular data, we can use generative models to create synthetic data that help us preper for future scenarios.
+        \item \justifying \textbf{C. Differentiable programming}: We can use modern automatic differentiation techniques to enable gradient-based calibration of ABMs.
+        \item \justifying \textbf{D. Causal inference}: We can use causal inference techniques to understand the causal relationships between the agents and the emergent behaviour of the system.
+        \item \justifying \textbf{E. Open-source software}: All our research software is open-source, and we use modern software engineering practices to ensure reproducibility.
+
+      \end{itemize}
     \end{block}
 
   \end{column} % End of the 2nd column
@@ -118,26 +201,18 @@
 %% Column 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{column}{.02\textwidth}\end{column} % Empty spacer column
-
-  \begin{column}{.3\textwidth} % 3rd column
-
-    \begin{block}{Results}
-      Results...
-    \end{block}
-
-    \begin{block}{References}
-      \nocite{*} % Insert publications even if they are not cited in the poster
-      \linespread{0.928}\selectfont
-      \footnotesize{\bibliographystyle{unsrt}
-      \bibliography{oxford_poster}}
-    \end{block}
-
-  \end{column} % End of the 3rd column
 
   \begin{column}{.02\textwidth}\end{column} % Empty spacer column
 
 \end{columns} % End of all the columns in the poster
+
+\begin{minipage}{\textwidth}
+  \begin{block}{Bibliography}
+    \nocite{*} % Insert publications even if they are not cited in the poster
+    \linespread{0.928}\selectfont
+    \scriptsize{\bibliographystyle{abbrv}\bibliography{lac_papers}}
+  \end{block}
+\end{minipage}
 
 \end{frame} % End of the enclosing frame
 
