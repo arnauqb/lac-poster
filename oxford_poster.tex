@@ -24,7 +24,7 @@
 
 \documentclass[final,hyperref={pdfpagelabels=false}]{beamer}
 
-\usepackage[orientation=portrait,size=a1,scale=1.43]{beamerposter} % Use the beamerposter package for laying out the poster with a portrait orientation and an a0 paper size
+\usepackage[orientation=portrait,size=a1,scale=1.35]{beamerposter} % Use the beamerposter package for laying out the poster with a portrait orientation and an a0 paper size
 
 \usetheme{Oxford}
 
@@ -41,6 +41,7 @@
 \usepackage{subcaption}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{multicol}
 \usepackage{svg}
 
 \usetikzlibrary{positioning, shapes, arrows.meta}
@@ -98,7 +99,7 @@
       \end{itemize}
       \begin{figure}
         \centering
-        \includegraphics[width=0.8\columnwidth]{figures/birds}
+        \includegraphics[width=0.7\columnwidth]{figures/birds}
         \caption{\footnotesize The flocking of a pack of birds is an emergent feature of the bird's individual behaviour.}
       \end{figure}
     \end{block}
@@ -106,11 +107,12 @@
       The effective use of ABMs in wider settings such as policy making is hindered by:
       \begin{itemize}
         \item\justifying \textbf{A. Expensive to simulate}: ABMs involve simulating potentially millions of agents, which is computationally expensive.
-        \item\justifying \textbf{B. Data availability:} The granularity of ABMs requires a lot of data, which is often not available.
-        \item\justifying\textbf{C. Tough to calibrate}: ABMs are often used to make predictions about the real world, but it is difficult to validate the truthfulness of the model.
-        \item\justifying \textbf{D. Difficult to analyse}: The complexity of ABMs makes it difficult to understand the causal 
+        \item\justifying \textbf{B. Data availability:} The granularity of ABMs requires a lot of data, which is often not available. 
+        \item \justifying \textbf{C. Synthetic populations: } Even when data is available, constructing suitable synthetic populations may be difficult.
+        \item\justifying\textbf{D. Tough to calibrate}: ABMs are often used to make predictions about the real world, but it is difficult to validate the truthfulness of the model.
+        \item\justifying \textbf{E. Difficult to analyse}: The complexity of ABMs makes it difficult to understand the causal 
           relationships between the agents and the emergent behaviour of the system.
-        \item\justifying \textbf{E. Hard to reproduce}: Programming ABMs is difficult, and it is often hard to 
+        \item\justifying \textbf{F. Hard to reproduce}: Programming ABMs is difficult, and it is often hard to 
           reproduce the results of a model done by another researcher.
       \end{itemize}
     \end{block}
@@ -194,10 +196,11 @@
       In our research group, we are tackling these challenges using the following techniques:
       \begin{itemize}
         \item \justifying \textbf{A. Tensorized simulation}: By leveraging modern software for tensorized computation, we can simulate ABMs orders of magnitude faster than traditional implementations.
-        \item \justifying \textbf{B. Scenario-generation}: When fine-grained data not available, we can use ABMs as a scenario-based planning tool to help policy making under uncertainty.
-        \item \justifying \textbf{C. Differentiable programming}: We can use automatic differentiation to enable gradient-based calibration of ABMs.
-        \item \justifying \textbf{D. Causal inference}: Causal inference techniques can help us understand the causal relationships between the agents and the emergent behaviour of the system.
-        \item \justifying \textbf{E. Open-source software}: All our research software is open-source, and we use modern software engineering practices to ensure reproducibility.
+        \item \justifying \textbf{B. Scenario-generation}: When fine-grained data is not available, we can use ABMs as a scenario-based planning tool to help policy making under uncertainty.
+        \item \justifying \textbf{C. Population synthesis}: By leveraging optimization methods, we can construct synthetic populations that match the real-world data. 
+        \item \justifying \textbf{D. Differentiable programming}: We can use automatic differentiation to enable gradient-based calibration of ABMs.
+        \item \justifying \textbf{E. Causal inference}: Causal inference techniques can help us understand the causal relationships between the agents and the emergent behaviour of the system.
+        \item \justifying \textbf{F. Open-source software}: All our research software is open-source, and we use modern software engineering practices to ensure reproducibility.
 
       \end{itemize}
     \end{block}
@@ -216,17 +219,20 @@
 \begin{minipage}{\textwidth}
   \begin{block}{5. Results and Impact}
     \begin{itemize}
-      \item We have dramatically accelerated the simulation, calibration, and analysis of ABMs involving millions of agents in epidemiological and financial domains \cite{10.5555/3545946.3598851, 10.1145/3604237.3626857, 10.5555/3545946.3598853, bayesian_diff, some_challenges}.
-      \item We have developed an open-source package for the Bayesian calibration of differentiable simulators using the developed techniques \cite{blackbirds}.
-      \item We have developed a novel methodology for scenario-generation based planning under uncertainty using ABMs \cite{synthpop}.
-      \item We have adapted secure multi-party computation techniques to enable privacy-preserving simulation, calibration, and analysis of ABMs \cite{decabm}.
+      \item We have dramatically accelerated the simulation, calibration, and analysis of ABMs involving millions of agents in epidemiological and financial domains \cite{10.5555/3545946.3598851, 10.1145/3604237.3626857, 10.5555/3545946.3598853, bayesian_diff, some_challenges};
+      \item created an open-source package for the Bayesian calibration of differentiable simulators using the developed techniques \cite{blackbirds};
+      \item established a novel methodology for scenario-generation based planning under uncertainty using ABMs \cite{synthpop};
+      \item developed optimization methods to accurately and efficiently constructed large-scale synthetic populations \cite{mahmoodMultiobjectiveCombinatorialOptimisation};
+      \item adapted secure multi-party computation techniques to enable privacy-preserving simulation, calibration, and analysis of ABMs \cite{decabm};
       \item TODO: Causal stuff?
   \end{itemize}
   \end{block}
   \begin{block}{Bibliography}
-    %\nocite{*} % Insert publications even if they are not cited in the poster
-    \linespread{0.928}\selectfont
-    \scriptsize{\bibliographystyle{abbrv}\bibliography{lac_papers}}
+    \begin{multicols}{2}
+      %\nocite{*} % Insert publications even if they are not cited in the poster
+      \linespread{0.928}\selectfont
+      \scriptsize{\bibliographystyle{abbrv}\bibliography{lac_papers}}
+    \end{multicols}
   \end{block}
 \end{minipage}
 
